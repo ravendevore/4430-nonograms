@@ -10,11 +10,35 @@
   overflow: auto;
 }
 
+.rowTest {
+  display: inline;
+  position: absolute;
+  bottom: 0%;
+  left: 20%;
+  margin: auto;
+}
+
+.colTest {
+  display: inline;
+  position: absolute;
+  bottom: 0%;
+  left: 30%;
+  margin: auto;
+}
+
 .create {
   display: inline;
   position: absolute;
   bottom: 0%;
   left: 50%;
+  margin: auto;
+}
+
+.check {
+  display: inline;
+  position: absolute;
+  bottom: 0%;
+  left: 75%;
   margin: auto;
 }
 
