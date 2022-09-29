@@ -1,8 +1,12 @@
 import { Button } from '@mui/material';
 
+import React, {useState} from 'react';
+
 const NonogramGame = () => {
-  // const [style, setStyle] = useState("contained");
-  const grid = Array(25).fill({sty: "outlined", val: 0});
+  var i = 0;
+  const [grid, setGrid] = useState(Array(25).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
+  //this is how we can set the original state outside of a function, by passing it to the useState function
+  //also, .map gives each object a key, which is needed to give each button a unique key
 
   function change(e, objElement) {
     console.log("Event: ", e);
@@ -22,7 +26,12 @@ const NonogramGame = () => {
   const buttonMap = grid.map((objElement) => {
     console.log(objElement.sty);
     return (
-      <Button sx={{margin: "3px", height: 60}} onClick={(e) => change(e, objElement)} variant={objElement.sty} />
+      <Button
+        sx={{margin: "3px", height: 60}}
+        key = {objElement.key}
+        onClick={(e) => {change(e, objElement); setGrid([...grid])}}
+        variant={objElement.sty}
+      />
     );
   });
 
