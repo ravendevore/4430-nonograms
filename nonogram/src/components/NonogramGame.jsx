@@ -1,4 +1,6 @@
 import { Button } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { visuallyHidden } from '@mui/utils';
 
 import React, {useState} from 'react';
 
@@ -33,7 +35,9 @@ const NonogramGame = () => {
         key = {objElement.key}
         onClick={(e) => {change(e, objElement); setGrid([...grid])}}
         variant={objElement.sty}
-      />
+      >
+        <CloseIcon fontSize="large" sx={visuallyHidden} />
+      </Button>
     );
   });
 
