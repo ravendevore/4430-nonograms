@@ -1,7 +1,6 @@
 .App {
   background-color: #282c34;
   position: fixed;
-  display: flex;
   margin: 0;
   padding: 0;
   top: 0;
@@ -11,36 +10,39 @@
   overflow: auto;
 }
 
-.textCol {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  
-  letter-spacing: .2em;
-  color: white;
-  border: 1px dotted white;
-  text-orientation: upright;
-  writing-mode: vertical-lr;
-  font-size: 60px;
-  justify-content: center;
+.rowTest {
+  display: inline;
+  position: absolute;
+  bottom: 0%;
+  left: 20%;
+  margin: auto;
 }
 
-.textRow {
-  display: flex;
-  color: white;
-  flex-direction: column;
-  align-items: flex-end;
-  letter-spacing: .5em;
-  text-indent:.5em;
-  border: 1px dotted white;
-  font-size: 60px;
-  text-align:right;
-  justify-content: center;
+.colTest {
+  display: inline;
+  position: absolute;
+  bottom: 0%;
+  left: 30%;
+  margin: auto;
 }
 
+.create {
+  display: inline;
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  margin: auto;
+}
 
-.grid {
-  margin: auto auto;
+.check {
+  display: inline;
+  position: absolute;
+  bottom: 0%;
+  left: 75%;
+  margin: auto;
+}
+
+.square-grid {
   display: grid;
   grid-template: auto, auto / auto, auto;
 }
@@ -77,6 +79,14 @@
 }
 
 .create {
+  display: inline;
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  margin: auto;
+}
+
+.solnButton {
   display: inline;
   position: absolute;
   bottom: 0%;
