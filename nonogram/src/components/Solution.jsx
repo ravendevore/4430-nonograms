@@ -18,7 +18,6 @@ const SolutionButton = () => {
   ]
 
   function checkSolution() { // FIXME - needs to get grid
-    console.log("HERE")
     let correct = true
     for(var j = 0; j < soln.length; j++) {
       if(
@@ -28,7 +27,7 @@ const SolutionButton = () => {
         correct = false
       }
     }
-    alert(correct ? "Solution is correct!" : "Solution is not correct...")
+    alert(correct ? "Solution is correct!" : "Solution is not correct...") // FIXME - alternate display method?
   }
 
   const solnDim = 5 // FIXME - generate from solution array?
