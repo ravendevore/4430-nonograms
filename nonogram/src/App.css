@@ -83,3 +83,11 @@
   left: 50%;
   margin: auto;
 }
+
+.solnButton {
+  display: inline;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  margin: auto;
+}
