@@ -1,6 +1,5 @@
 import { Button } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { visuallyHidden } from '@mui/utils';
+import CloseIcon from '@mui/icons-material/Close'; //FIXME
 
 import React, {useState} from 'react';
 
@@ -48,7 +47,7 @@ const NonogramGame = () => {
     if (objElement.val === 0 || objElement.val === 1) { // currently blank or filled: change to X
       objElement.val = 2;
       objElement.sty = "contained";
-      objElement.color = "error"; // red for X - FIXME need image
+      objElement.color = "error"; // red for X
     } else if (objElement.val === 2) { // currently X: change to blank
       objElement.val = 0;
       objElement.sty = "outlined";
@@ -60,18 +59,35 @@ const NonogramGame = () => {
 
   const buttonMap = grid.map((objElement) => {
     console.log(objElement.sty);
-    return (
-      <Button
-        sx={{borderRadius: "0px", margin: "0px", border: "1px dotted white", height: "100%", width: "100%"}}
-        key = {objElement.key}
-        onClick={(e) => {change(e, objElement); setGrid([...grid])}}
-        onContextMenu={(e) => {changeRight(e, objElement); setGrid([...grid])}}
-        variant={objElement.sty}
-        color={objElement.color}
-      >
-        <CloseIcon fontSize="large" sx={visuallyHidden} />
-      </Button>
-    );
+    if (objElement.val == 2) // display X
+    {
+      return (
+        <Button
+          sx={{borderRadius: "0px", margin: "0px", border: "1px dotted white", height: "100%", width: "100%"}}
+          key = {objElement.key}
+          onClick={(e) => {change(e, objElement); setGrid([...grid])}}
+          onContextMenu={(e) => {changeRight(e, objElement); setGrid([...grid])}}
+          variant={objElement.sty}
+          color={objElement.color}
+        >
+          <CloseIcon color="white" sx={{ width: 30, height: 30 }}/>
+        </Button>
+      );
+    }
+    else // do not display X
+    {
+      return (
+        <Button
+          sx={{borderRadius: "0px", margin: "0px", border: "1px dotted white", height: "100%", width: "100%"}}
+          key = {objElement.key}
+          onClick={(e) => {change(e, objElement); setGrid([...grid])}}
+          onContextMenu={(e) => {changeRight(e, objElement); setGrid([...grid])}}
+          variant={objElement.sty}
+          color={objElement.color}
+        >
+        </Button>
+      );
+    }
   });
 
   const colHMap = colH.map((objElement) => {
