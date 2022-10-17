@@ -80,3 +80,15 @@
   right: 50%;
   align-items: center;
 }
+
+.tutorial {
+  display: block;
+  margin: auto;
+  position: fixed;
+  height: 50px;
+  width: 150px;
+  margin-top: 50%;
+  bottom: -90%;
+  right: 50%;
+  align-items: center;
+}
