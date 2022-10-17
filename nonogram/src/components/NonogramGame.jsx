@@ -1,7 +1,8 @@
-import { Button } from '@mui/material';
+import { Button, Popover, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close'; //FIXME
-
 import React, {useState} from 'react';
+import example from "./example.png"
+
 
 const NonogramGame = () => {
   var i = 0;
@@ -154,6 +155,17 @@ const NonogramGame = () => {
     return fullList;
   }
 
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
   return (
     <React.Fragment>
         <div className="grid">
@@ -167,12 +179,42 @@ const NonogramGame = () => {
                 {buttonMap}
             </div>
         </div>
+
+
         <Button className="solnButton"
             onClick={() => checkSolution()}
             variant = "contained"
         >
             Check Solution
         </Button>
+
+
+        <Button className="tutorial"
+        variant="contained"
+        onClick={handleClick}
+        >
+        How to Play
+        </Button>
+
+
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+        >
+          <Typography sx={{ p: 2 }}>-Numbers on the side of each row and column correspond to “blocks” of squares than should be filled in</Typography>
+            <img src={example}></img>
+            <Typography sx={{ p: 2 }}>-Left click to fill in squares</Typography>
+          <Typography sx={{ p: 2 }}>-Right click to mark squares as blank</Typography>
+      
+        </Popover>
+
+
     </React.Fragment>
     
   );
