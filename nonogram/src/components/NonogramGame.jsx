@@ -201,6 +201,8 @@ const NonogramGame = () => {
           id={id}
           open={open}
           anchorEl={anchorEl}
+		  anchorReference="anchorPosition"
+		  anchorPosition={{ top: 200, left: 300 }}
           onClose={handleClose}
           anchorOrigin={{
             vertical: 'bottom',
