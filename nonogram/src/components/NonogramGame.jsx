@@ -83,8 +83,7 @@ const NonogramGame = () => {
           onContextMenu={(e) => {changeRight(e, objElement); setGrid([...grid])}}
           variant={objElement.sty}
           color={objElement.color}
-        >
-        </Button>
+        />
       );
     }
   });
@@ -122,7 +121,6 @@ const NonogramGame = () => {
     alert(correct ? "Solution is correct!" : "Solution is not correct...") 
   }
 
-
   function genNums(isRow) {
     const solnDim = 5
     let fullList = []
@@ -153,7 +151,6 @@ const NonogramGame = () => {
     return fullList;
   }
 
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -180,12 +177,11 @@ const NonogramGame = () => {
 
 
       <Button className="solnButton"
-          onClick={() => checkSolution()}
-          variant = "contained"
+        onClick={() => checkSolution()}
+        variant = "contained"
       >
-          Check Solution
+        Check Solution
       </Button>
-
 
       <Button className="tutorial"
       variant="contained"
@@ -214,7 +210,6 @@ const NonogramGame = () => {
         <Typography sx={{ p: 2 }}>-Right click to mark squares as blank</Typography>
       </Popover>
     </React.Fragment>
-    
   );
 }
 
