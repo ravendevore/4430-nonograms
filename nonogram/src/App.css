@@ -11,26 +11,27 @@
   overflow: auto;
 }
 
+.gridCont Button {
+  min-width: 10px;
+}
+
 .textCol, .textRow {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
+  display: flex;
 	border: 1px dotted white;
-	color: white;
-	font-size: 40px;
-	justify-content: center;
+  color: white;
+  font-size: 1.75em;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .textCol {
-	letter-spacing: .2em;
-	text-orientation: upright;
-	writing-mode: vertical-lr;
+  text-align: center;
+  width: 35px;
 }
 
 .textRow {
-	letter-spacing: .5em;
-	text-indent: .5em;
-	text-align: right;
+	flex-direction: column;
+  padding: 0 5px;
 }
 
 .grid {
@@ -43,19 +44,17 @@
 	grid-row: 2;
 	grid-column: 2;
 	display: grid;
-	grid-template: repeat(5, 1fr) / repeat(5, 1fr);
-	height: 300px;
+	grid-template: repeat(15, 1fr) / repeat(15, 1fr);
 	border-bottom: 1px solid white;
 	border-right: 1px solid white;
 	align-items: center;
 }
 
-
 .gridColH {
   grid-row: 1;
   grid-column: 2;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(15, 1fr);
   border: 1px solid white;
 }
 
@@ -63,7 +62,7 @@
   grid-row: 2;
   grid-column: 1;
   display: grid;
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: repeat(15, 1fr);
   border-top: 1px solid white;
   border-left: 1px solid white;
   border-bottom: 1px solid white;
@@ -77,7 +76,7 @@
   width: 200px;
   margin-top: 50%;
   bottom: -90%;
-  right: 50%;
+  right: 5%;
   align-items: center;
 }
 
@@ -89,6 +88,6 @@
   width: 150px;
   margin-top: 50%;
   bottom: -90%;
-  right: 50%;
+  right: 5%;
   align-items: center;
 }

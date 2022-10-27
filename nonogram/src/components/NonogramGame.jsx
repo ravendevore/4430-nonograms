@@ -6,13 +6,23 @@ import example from "./example.png"
 
 const NonogramGame = () => {
   var i = 0;
-  const [grid, setGrid] = useState(Array(25).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
+  const [grid, setGrid] = useState(Array(15*15).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
   const soln = [
-    1, 1, 1, 1, 1,
-    1, 0, 1, 1, 1,
-    0, 0, 1, 1, 0,
-    1, 0, 1, 0, 1,
-    0, 0, 0, 0, 0
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
   ]
 
   const [colH, setColH] = useState(genNums(0).map((obj) => ({val: obj, key: i++})))
@@ -58,18 +68,18 @@ const NonogramGame = () => {
 
   const buttonMap = grid.map((objElement) => {
     console.log(objElement.sty);
-    if (objElement.val == 2) // display X
+    if (objElement.val === 2) // display X
     {
       return (
         <Button
-          sx={{borderRadius: "0px", margin: "0px", border: "1px dotted white", height: "100%", width: "100%"}}
+          sx={{pborderRadius: "0px", margin: "0px", border: "1px dotted white", height: "100%", width: "100%", padding: "0"}}
           key = {objElement.key}
           onClick={(e) => {change(e, objElement); setGrid([...grid])}}
           onContextMenu={(e) => {changeRight(e, objElement); setGrid([...grid])}}
           variant={objElement.sty}
           color={objElement.color}
         >
-          <CloseIcon color="white" sx={{ width: 30, height: 30 }}/>
+          <CloseIcon color="white" sx={{ width: "35px", height: "35px"}}/>
         </Button>
       );
     }
@@ -122,7 +132,7 @@ const NonogramGame = () => {
   }
 
   function genNums(isRow) {
-    const solnDim = 5
+    const solnDim = 15;
     let fullList = []
     for (let i = 0; i < solnDim; i++) {
       let currList = []
@@ -146,9 +156,9 @@ const NonogramGame = () => {
       if (currList.length === 0) {
         currList.push(0)
       }
-      fullList.push(currList)
+      fullList.push(currList.join(' '))
     }
-    return fullList;
+    return fullList
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
