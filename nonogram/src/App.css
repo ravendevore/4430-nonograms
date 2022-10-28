@@ -1,5 +1,5 @@
 .App {
-  background-color: #282c34;
+  background-color: black;
   position: fixed;
   display: flex;
   margin: 0;
@@ -17,21 +17,36 @@
 
 .textCol, .textRow {
   display: flex;
-	border: 1px dotted white;
   color: white;
-  font-size: 1.75em;
+  font-size: 1.70em;
   justify-content: center;
   align-items: flex-end;
 }
 
 .textCol {
+  border-left: 1px solid #404040;
+  border-right: 1px solid #404040;
   text-align: center;
   width: 35px;
 }
+.textCol:first-child {
+  border-left: 1px solid white;
+}
+.textCol:last-child {
+  border-right: 1px solid white;
+}
 
 .textRow {
+  border-top: 1px solid #404040;
+  border-bottom: 1px solid #404040;
 	flex-direction: column;
   padding: 0 5px;
+}
+.textRow:first-child {
+  border-top: 1px solid white;
+}
+.textRow:last-child {
+  border-bottom: 1px solid white;
 }
 
 .grid {
@@ -45,9 +60,35 @@
 	grid-column: 2;
 	display: grid;
 	grid-template: repeat(15, 1fr) / repeat(15, 1fr);
-	border-bottom: 1px solid white;
-	border-right: 1px solid white;
+	border: 1px solid white;
 	align-items: center;
+}
+
+.gridCont .MuiButtonBase-root:nth-child(n):nth-child(-n+15) {
+  border-top: 1px solid white;
+}
+.gridCont .MuiButtonBase-root:nth-child(n+211):nth-child(-n+225) {
+  border-bottom: 1px solid white;
+}
+.gridCont .MuiButtonBase-root:nth-child(15n+1) {
+  border-left: 1px solid white;
+}
+.gridCont .MuiButtonBase-root:nth-child(15n) {
+  border-right: 1px solid white;
+}
+
+.gridCont .MuiButtonBase-root:nth-child(15n-10), .gridCont .MuiButtonBase-root:nth-child(15n-5) {
+  border-right: 1px solid white;
+}
+.gridCont .MuiButtonBase-root:nth-child(15n-9), .gridCont .MuiButtonBase-root:nth-child(15n-4) {
+  border-left: 1px solid white;
+}
+
+.gridCont .MuiButtonBase-root:nth-child(n+76):nth-child(-n+90), .gridCont .MuiButtonBase-root:nth-child(n+151):nth-child(-n+165) {
+  border-top: 1px solid white;
+}
+.gridCont .MuiButtonBase-root:nth-child(n+61):nth-child(-n+75), .gridCont .MuiButtonBase-root:nth-child(n+136):nth-child(-n+150) {
+  border-bottom: 1px solid white;
 }
 
 .gridColH {
@@ -55,7 +96,15 @@
   grid-column: 2;
   display: grid;
   grid-template-columns: repeat(15, 1fr);
-  border: 1px solid white;
+  border-left: 1px solid white;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+}
+.gridColH > :nth-child(5), .gridColH > :nth-child(10) {
+  border-right: 1px solid white
+}
+.gridColH > :nth-child(6), .gridColH > :nth-child(11) {
+  border-left: 1px solid white
 }
 
 .gridRowH {
@@ -66,6 +115,12 @@
   border-top: 1px solid white;
   border-left: 1px solid white;
   border-bottom: 1px solid white;
+}
+.gridRowH > :nth-child(5n) {
+  border-bottom: 1px solid white
+}
+.gridRowH > :nth-child(5n+1) {
+  border-top: 1px solid white
 }
 
 .solnButton {

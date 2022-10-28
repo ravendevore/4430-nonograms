@@ -33,13 +33,13 @@ const NonogramGame = () => {
     for(let j = 0; j < array.length; j++) {
         output[j] = {"val": array[j]}
     }
-    console.log(output);
+    //console.log(output);
     return output;
   }
 
   function change(e, objElement) { // left click - toggle fill
-    console.log("Event: ", e);
-    console.log("Before: ", objElement);
+    //console.log("Event: ", e);
+    //console.log("Before: ", objElement);
     if (objElement.val === 0 || objElement.val === 2) { //b lank or X: change to filled
       objElement.val = 1;
       objElement.sty = "contained";
@@ -48,13 +48,13 @@ const NonogramGame = () => {
       objElement.val = 0;
       objElement.sty = "outlined";
     }
-    console.log("After: ", objElement);
+    //console.log("After: ", objElement);
   }
 
   function changeRight(e, objElement) { // right click - toggle X
     e.preventDefault() // prevent context menu from showing
-    console.log("Event: ", e);
-    console.log("Before: ", objElement);
+    //console.log("Event: ", e);
+    //console.log("Before: ", objElement);
     if (objElement.val === 0 || objElement.val === 1) { // currently blank or filled: change to X
       objElement.val = 2;
       objElement.sty = "contained";
@@ -63,23 +63,23 @@ const NonogramGame = () => {
       objElement.val = 0;
       objElement.sty = "outlined";
     }
-    console.log("After: ", objElement);
+    //console.log("After: ", objElement);
   }
 
   const buttonMap = grid.map((objElement) => {
-    console.log(objElement.sty);
+    //console.log(objElement.sty);
     if (objElement.val === 2) // display X
     {
       return (
         <Button
-          sx={{pborderRadius: "0px", margin: "0px", border: "1px dotted white", height: "100%", width: "100%", padding: "0"}}
+          sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
           key = {objElement.key}
           onClick={(e) => {change(e, objElement); setGrid([...grid])}}
           onContextMenu={(e) => {changeRight(e, objElement); setGrid([...grid])}}
           variant={objElement.sty}
           color={objElement.color}
         >
-          <CloseIcon color="white" sx={{ width: "35px", height: "35px"}}/>
+          <CloseIcon color="white" sx={{ width: "30px", height: "30px"}}/>
         </Button>
       );
     }
@@ -87,7 +87,7 @@ const NonogramGame = () => {
     {
       return (
         <Button
-          sx={{borderRadius: "0px", margin: "0px", border: "1px dotted white", height: "100%", width: "100%"}}
+          sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%"}}
           key = {objElement.key}
           onClick={(e) => {change(e, objElement); setGrid([...grid])}}
           onContextMenu={(e) => {changeRight(e, objElement); setGrid([...grid])}}
@@ -150,7 +150,7 @@ const NonogramGame = () => {
           isBlock = false
         }
       }
-      if (blockSize != 0) {
+      if (blockSize !== 0) {
         currList.push(blockSize)
       }
       if (currList.length === 0) {
