@@ -59,68 +59,163 @@
 	grid-row: 2;
 	grid-column: 2;
 	display: grid;
-	grid-template: repeat(15, 1fr) / repeat(15, 1fr);
 	border: 1px solid white;
 	align-items: center;
 }
 
-.gridCont .MuiButtonBase-root:nth-child(n):nth-child(-n+15) {
-  border-top: 1px solid white;
+/*determines number of rows and columns based on size*/
+.size-5 .gridCont {
+  grid-template: repeat(5, 1fr) / repeat(5, 1fr);
 }
-.gridCont .MuiButtonBase-root:nth-child(n+211):nth-child(-n+225) {
+.size-10 .gridCont {
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+}
+.size-15 .gridCont {
+  grid-template: repeat(15, 1fr) / repeat(15, 1fr);
+}
+
+/*creates white border on edge of .gridCont, by size*/
+/*top for size 5*/
+.size-5 .gridCont .MuiButtonBase-root:nth-child(n):nth-child(-n+5) {
+  border-top: 1px solid white; 
+}
+/*bottom for size 5*/
+.size-5.gridCont .MuiButtonBase-root:nth-child(n+21):nth-child(-n+25) {
   border-bottom: 1px solid white;
 }
-.gridCont .MuiButtonBase-root:nth-child(15n+1) {
+/*left for size 5*/
+.size-5 .gridCont .MuiButtonBase-root:nth-child(5n+1) {
   border-left: 1px solid white;
 }
-.gridCont .MuiButtonBase-root:nth-child(15n) {
+/*right for size 5*/
+.size-5 .gridCont .MuiButtonBase-root:nth-child(5n) {
   border-right: 1px solid white;
 }
 
-.gridCont .MuiButtonBase-root:nth-child(15n-10), .gridCont .MuiButtonBase-root:nth-child(15n-5) {
-  border-right: 1px solid white;
+/*top for size 10*/
+.size-10 .gridCont .MuiButtonBase-root:nth-child(n):nth-child(-n+10) {
+  border-top: 1px solid white; 
 }
-.gridCont .MuiButtonBase-root:nth-child(15n-9), .gridCont .MuiButtonBase-root:nth-child(15n-4) {
+/*bottom for size 10*/
+.size-10 .gridCont .MuiButtonBase-root:nth-child(n+91):nth-child(-n+100) {
+  border-bottom: 1px solid white;
+}
+/*left for size 10*/
+.size-5 .gridCont .MuiButtonBase-root:nth-child(10n+1) {
   border-left: 1px solid white;
 }
-
-.gridCont .MuiButtonBase-root:nth-child(n+76):nth-child(-n+90), .gridCont .MuiButtonBase-root:nth-child(n+151):nth-child(-n+165) {
-  border-top: 1px solid white;
+/*right for size 10*/
+.size-5 .gridCont .MuiButtonBase-root:nth-child(10n) {
+  border-right: 1px solid white;
 }
-.gridCont .MuiButtonBase-root:nth-child(n+61):nth-child(-n+75), .gridCont .MuiButtonBase-root:nth-child(n+136):nth-child(-n+150) {
+
+/*top for size 15*/
+.size-15 .gridCont .MuiButtonBase-root:nth-child(n):nth-child(-n+15) {
+  border-top: 1px solid white; 
+}
+/*bottom for size 15*/
+.size-15 .gridCont .MuiButtonBase-root:nth-child(n+211):nth-child(-n+225) {
   border-bottom: 1px solid white;
+}
+/*left for size 15*/
+.size-15 .gridCont .MuiButtonBase-root:nth-child(15n+1) {
+  border-left: 1px solid white;
+}
+/*right for size 15*/
+.size-15 .gridCont .MuiButtonBase-root:nth-child(15n) {
+  border-right: 1px solid white;
+}
+
+/*vertical content dividing lines*/
+/*vertical lines, left border for size 15*/
+.size-15 .gridCont .MuiButtonBase-root:nth-child(15n-9), .size-15 .gridCont .MuiButtonBase-root:nth-child(15n-4) {
+  border-left: 1px solid #999999;
+}
+/*vertical lines, right border for size 15*/
+.size-15 .gridCont .MuiButtonBase-root:nth-child(15n-10), .size-15 .gridCont .MuiButtonBase-root:nth-child(15n-5) {
+  border-right: 1px solid #999999;
+}
+/*vertical line, left border for size 10*/
+.size-10 .gridCont .MuiButtonBase-root:nth-child(10n-4) {
+  border-left: 1px solid #999999;
+}
+/*vertical line, right border for size 10*/
+.size-10 .gridCont .MuiButtonBase-root:nth-child(10n-5) {
+  border-right: 1px solid #999999;
+}
+
+/*horizontal content dividing lines*/
+/*horizontal line, bottom border for size 10*/
+.size-10 .gridCont .MuiButtonBase-root:nth-child(n+41):nth-child(-n+50) {
+  border-bottom: 1px solid #999999;
+}
+/*horizontal line, top border for size 10*/
+.size-10 .gridCont .MuiButtonBase-root:nth-child(n+51):nth-child(-n+60) {
+  border-top: 1px solid #999999;
+}
+/*horizontal lines, bottom borders for size 15*/
+.size-15 .gridCont .MuiButtonBase-root:nth-child(n+76):nth-child(-n+90), .size-15 .gridCont .MuiButtonBase-root:nth-child(n+151):nth-child(-n+165) {
+  border-top: 1px solid #999999;
+}
+/*horizontal lines, top borders for size 15*/
+.size-15 .gridCont .MuiButtonBase-root:nth-child(n+61):nth-child(-n+75), .size-15 .gridCont .MuiButtonBase-root:nth-child(n+136):nth-child(-n+150) {
+  border-bottom: 1px solid #999999;
 }
 
 .gridColH {
   grid-row: 1;
   grid-column: 2;
   display: grid;
-  grid-template-columns: repeat(15, 1fr);
   border-left: 1px solid white;
   border-top: 1px solid white;
   border-right: 1px solid white;
 }
+
+/*determines number of column headers based on size*/
+.size-5 .gridColH {
+  grid-template-columns: repeat(5, 1fr);
+}
+.size-10 .gridColH {
+  grid-template-columns: repeat(10, 1fr);
+}
+.size-15 .gridColH {
+  grid-template-columns: repeat(15, 1fr);
+}
+
+/*column header lines every 5*/
 .gridColH > :nth-child(5), .gridColH > :nth-child(10) {
-  border-right: 1px solid white
+  border-right: 1px solid #999999;
 }
 .gridColH > :nth-child(6), .gridColH > :nth-child(11) {
-  border-left: 1px solid white
+  border-left: 1px solid #999999;
 }
+
 
 .gridRowH {
   grid-row: 2;
   grid-column: 1;
   display: grid;
-  grid-template-rows: repeat(15, 1fr);
   border-top: 1px solid white;
   border-left: 1px solid white;
   border-bottom: 1px solid white;
 }
+/*determines number of columns based on size*/
+.size-5 .gridRowH {
+  grid-template-rows: repeat(5, 1fr);
+}
+.size-10 .gridRowH {
+  grid-template-rows: repeat(10, 1fr);
+}
+.size-15 .gridRowH {
+  grid-template-rows: repeat(15, 1fr);
+}
+
+/*row header lines every 5*/
 .gridRowH > :nth-child(5n) {
-  border-bottom: 1px solid white
+  border-bottom: 1px solid #999999;
 }
 .gridRowH > :nth-child(5n+1) {
-  border-top: 1px solid white
+  border-top: 1px solid #999999;
 }
 
 .solnButton {

@@ -6,8 +6,13 @@ import example from "./example.png"
 
 const NonogramGame = () => {
   var i = 0;
-  const [grid, setGrid] = useState(Array(15*15).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
-  const soln = [
+  const [dim] = useState(() => getDim())
+  const [grid, setGrid] = useState(Array(dim*dim).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
+  
+  const [soln] = useState(() => randGrid())
+  const [colH] = useState(genNums(0).map((obj) => ({val: obj, key: i++})))
+  const [rowH] = useState(genNums(1).map((obj) => ({val: obj, key: i++})))
+  /*const soln = [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
     1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
     0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
@@ -23,23 +28,38 @@ const NonogramGame = () => {
     0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
     0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
     0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-  ]
+  ]*/
 
-  const [colH, setColH] = useState(genNums(0).map((obj) => ({val: obj, key: i++})))
-  const [rowH, setRowH] = useState(genNums(1).map((obj) => ({val: obj, key: i++})))
 
-  function arrToObj(array) {
-    let output = []
-    for(let j = 0; j < array.length; j++) {
-        output[j] = {"val": array[j]}
+  function getDim() {
+    const urlParams = new URLSearchParams(window.location.search)
+    let d = urlParams.get('dim')
+
+    const valid = ["5", "10", "15"]
+    if(valid.includes(d) === false) {
+      return 5
+    } else {
+      return parseInt(d)
     }
-    //console.log(output);
-    return output;
+  }
+
+  function randGrid() {
+    const chance = .75
+
+    var output = Array(dim*dim);
+    for(let i = 0; i < output.length; ++i) {
+      let c = Math.random()
+      if(c < chance) {
+        output[i] = 1
+      } else {
+        output[i] = 0
+      }
+    }
+    //this is actually called twice, as react calls usestate function twice. this function isn't pure, but it should work anyway
+    return output
   }
 
   function change(e, objElement) { // left click - toggle fill
-    //console.log("Event: ", e);
-    //console.log("Before: ", objElement);
     if (objElement.val === 0 || objElement.val === 2) { //b lank or X: change to filled
       objElement.val = 1;
       objElement.sty = "contained";
@@ -48,13 +68,10 @@ const NonogramGame = () => {
       objElement.val = 0;
       objElement.sty = "outlined";
     }
-    //console.log("After: ", objElement);
   }
 
   function changeRight(e, objElement) { // right click - toggle X
     e.preventDefault() // prevent context menu from showing
-    //console.log("Event: ", e);
-    //console.log("Before: ", objElement);
     if (objElement.val === 0 || objElement.val === 1) { // currently blank or filled: change to X
       objElement.val = 2;
       objElement.sty = "contained";
@@ -63,11 +80,9 @@ const NonogramGame = () => {
       objElement.val = 0;
       objElement.sty = "outlined";
     }
-    //console.log("After: ", objElement);
   }
 
   const buttonMap = grid.map((objElement) => {
-    //console.log(objElement.sty);
     if (objElement.val === 2) // display X
     {
       return (
@@ -132,7 +147,7 @@ const NonogramGame = () => {
   }
 
   function genNums(isRow) {
-    const solnDim = 15;
+    const solnDim = dim
     let fullList = []
     for (let i = 0; i < solnDim; i++) {
       let currList = []
@@ -173,18 +188,19 @@ const NonogramGame = () => {
 
   return (
     <React.Fragment>
-      <div className="grid">
-        <div className="gridColH">
+      <div className={"size-" + dim}>
+        <div className="grid">
+          <div className="gridColH">
             {colHMap}
-        </div>
-        <div className="gridRowH">
+          </div>
+          <div className="gridRowH">
             {rowHMap}
-        </div>
-        <div className="gridCont">
+          </div>
+          <div className="gridCont">
             {buttonMap}
+          </div>
         </div>
       </div>
-
 
       <Button className="solnButton"
         onClick={() => checkSolution()}
