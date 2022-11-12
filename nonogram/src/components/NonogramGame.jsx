@@ -10,8 +10,13 @@ const NonogramGame = () => {
   const [grid, setGrid] = useState(Array(dim*dim).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
   
   const [soln] = useState(() => randGrid())
-  const [colH] = useState(genNums(0).map((obj) => ({val: obj, key: i++})))
-  const [rowH] = useState(genNums(1).map((obj) => ({val: obj, key: i++})))
+  const [colH] = useState(genNums(0,false).map((obj) => ({val: obj, key: i++})))
+  const [rowH] = useState(genNums(1,false).map((obj) => ({val: obj, key: i++})))
+
+  // keeps track of grid state by cols/rows
+  let gridCols = genNums(0,true)
+  let gridRows = genNums(1,true)
+
   /*const soln = [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
     1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
@@ -113,24 +118,46 @@ const NonogramGame = () => {
     }
   });
 
-  const colHMap = colH.map((objElement) => {
-    return (
-      <div className="textCol"
-        key = {objElement.key}
-      >
-        {objElement.val}
-      </div>
-    );
+  const colHMap = colH.map((objElement, index) => {
+    if (objElement.val == gridCols[index]) { // grid matches - grey out
+      return (
+        <div className="textCol"
+          key = {objElement.key}
+          style={{color: "gray"}}
+        >
+          {objElement.val}
+        </div>
+      );
+    } else {
+      return (
+        <div className="textCol"
+          key = {objElement.key}
+        >
+          {objElement.val}
+        </div>
+      );
+    }
   });
-
-  const rowHMap = rowH.map((objElement) => {
-    return (
-      <div className="textRow"
-        key = {objElement.key}
-      >
-        {objElement.val}
-      </div>
-    );
+  
+  const rowHMap = rowH.map((objElement, index) => {
+    if (objElement.val == gridRows[index]) { // grid matches - grey out
+      return (
+        <div className="textRow"
+          key = {objElement.key}
+          style={{color: "gray"}}
+        >
+          {objElement.val}
+        </div>
+      );
+    } else {
+      return (
+        <div className="textRow"
+          key = {objElement.key}
+        >
+          {objElement.val}
+        </div>
+      );
+    }
   });
 
   function checkSolution() {
@@ -145,8 +172,8 @@ const NonogramGame = () => {
     }
     alert(correct ? "Solution is correct!" : "Solution is not correct...") 
   }
-
-  function genNums(isRow) {
+ 
+  function genNums(isRow, isGrid) {
     const solnDim = dim
     let fullList = []
     for (let i = 0; i < solnDim; i++) {
@@ -155,7 +182,8 @@ const NonogramGame = () => {
       let isBlock = false
       for (let j = 0; j < solnDim; j++) {
         let cellNum = isRow ? i*solnDim+j : j*solnDim+i // Currently works with 1D array
-        if (soln[cellNum] === 1) {
+        let currCellVal = isGrid ? grid[cellNum].val : soln[cellNum]
+        if (currCellVal === 1) {
           isBlock = true
           blockSize++
         }
