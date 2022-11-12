@@ -241,3 +241,15 @@
   right: 5%;
   align-items: center;
 }
+
+.hint {
+  display: block;
+  margin: auto;
+  position: fixed;
+  height: 50px;
+  width: 150px;
+  margin-top: 50%;
+  bottom: -90%;
+  right: 5%;
+  align-items: center;
+}

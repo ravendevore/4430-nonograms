@@ -204,6 +204,76 @@ const NonogramGame = () => {
     return fullList
   }
 
+  function giveHint() {
+    let hintToGive = determineHint()
+    if (hintToGive) {
+      let alertMsg = "Hint: The solution to " + hintToGive.type + " " + (hintToGive.index+1) + " will be revealed!"
+      alert(alertMsg)
+      for (let i = 0; i < dim; i++) { // change the cells to reveal the hint
+        let cellIndex = hintToGive.type === "row" ? hintToGive.index*dim+i : i*dim+hintToGive.index
+        if (soln[cellIndex] === 1) { // filled
+          grid[cellIndex].val = 1;
+          grid[cellIndex].sty = "contained";
+          grid[cellIndex].color = "primary"; // blue for fill
+          setGrid([...grid])
+        } else { // blank - change to "X" for clarity
+          grid[cellIndex].val = 2;
+          grid[cellIndex].sty = "contained";
+          grid[cellIndex].color = "error";
+          setGrid([...grid])
+        }
+      }
+    } else { // no hints - user has solved puzzle
+      alert("Hint: Try clicking the \"Check Solution\" button!") 
+    }
+  }
+
+  function determineHint() { // first looks for a random empty row/col, then an unsolved row/col
+    let emptyChoices = []
+    gridCols.forEach( (currCol, currIndex) => { // find empty columns
+      if (currCol === "0") {
+        emptyChoices.push({type:"column", index:currIndex})
+      }
+    })
+    gridRows.forEach( (currRow, currIndex) => { // find empty rows
+      if (currRow === "0") {
+        emptyChoices.push({type:"row", index:currIndex})
+      }
+    })
+    if (emptyChoices.length) {// at least one empty row/col - return one at random
+      return emptyChoices[Math.floor(Math.random() * emptyChoices.length)]
+    }
+
+    let unsolvedChoices = []
+    for (let i = 0; i < dim; i++) {// find unsolved cols
+      let correct = true
+      for (let j = 0; j < dim; j++) {
+        if( (soln[j*dim+i] === 1 && grid[j*dim+i].val !== 1) || (soln[j*dim+i] === 0 && grid[j*dim+i].val === 1) ) {
+          correct = false
+        }
+      }
+      if (!correct) {
+        unsolvedChoices.push({type:"col", index:i})
+      }
+    }
+    for (let i = 0; i < dim; i++) {// find unsolved rows
+      let correct = true
+      for (let j = 0; j < dim; j++) {
+        if( (soln[i*dim+j] === 1 && grid[i*dim+j].val !== 1) || (soln[i*dim+j] === 0 && grid[i*dim+j].val === 1) ) {
+          correct = false
+        }
+      }
+      if (!correct) {
+        unsolvedChoices.push({type:"row", index:i})
+      }
+    }
+    if (unsolvedChoices.length) {// at least one unsolved row/col - return one at random
+      return unsolvedChoices[Math.floor(Math.random() * unsolvedChoices.length)]
+    } else {
+      return // otherwise return nothing - no possible hints to give (solved)
+    }
+  }
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -242,6 +312,13 @@ const NonogramGame = () => {
       onClick={handleClick}
       >
         How to Play
+      </Button>
+
+      <Button className="hint"
+      variant="contained"
+      onClick={() => giveHint()}
+      >
+        Get Hint
       </Button>
 
       <Popover
