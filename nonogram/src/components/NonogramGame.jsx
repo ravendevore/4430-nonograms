@@ -1,6 +1,6 @@
 import { Button, Popover, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close'; //FIXME
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import example from "./example.png"
 
 
@@ -10,12 +10,14 @@ const NonogramGame = () => {
   const [grid, setGrid] = useState(Array(dim*dim).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
   
   const [soln] = useState(() => randGrid())
-  const [colH] = useState(genNums(0,false).map((obj) => ({val: obj, key: i++})))
-  const [rowH] = useState(genNums(1,false).map((obj) => ({val: obj, key: i++})))
+  const [colH] = useState(genNums(0, false).map((obj) => ({val: obj, key: i++})))
+  const [rowH] = useState(genNums(1, false).map((obj) => ({val: obj, key: i++})))
+
+  const [choiceStatus, setChoiceStatus] = useState(0)
 
   // keeps track of grid state by cols/rows
-  let gridCols = genNums(0,true)
-  let gridRows = genNums(1,true)
+  let gridCols = genNums(0, true)
+  let gridRows = genNums(1, true)
 
   /*const soln = [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
@@ -64,62 +66,69 @@ const NonogramGame = () => {
     return output
   }
 
-  function change(e, objElement) { // left click - toggle fill
-    if (objElement.val === 0 || objElement.val === 2) { //b lank or X: change to filled
-      objElement.val = 1;
-      objElement.sty = "contained";
-      objElement.color = "primary"; // blue for fill
-    } else if (objElement.val === 1) { // filled: change to blank
-      objElement.val = 0;
-      objElement.sty = "outlined";
+  function changeFirst(e, objElement) {
+    setChoiceStatus(objElement.val)
+    if (e.buttons === 1) {
+      if (choiceStatus === 0) {
+        objElement.val = 1
+        objElement.sty = "contained"
+        objElement.color = "primary"
+      } else if (choiceStatus === 1 || choiceStatus === 2) {
+        objElement.val = 0
+        objElement.sty = "outlined"
+      }
+    } else if (e.buttons === 2) {
+      if (choiceStatus === 0 || choiceStatus === 1) {
+        objElement.val = 2
+        objElement.sty = "contained"
+        objElement.color = "error"
+      } else if (choiceStatus === 2) {
+        objElement.val = 0
+        objElement.sty = "outlined"
+      }
     }
   }
 
-  function changeRight(e, objElement) { // right click - toggle X
-    e.preventDefault() // prevent context menu from showing
-    if (objElement.val === 0 || objElement.val === 1) { // currently blank or filled: change to X
-      objElement.val = 2;
-      objElement.sty = "contained";
-      objElement.color = "error"; // red for X
-    } else if (objElement.val === 2) { // currently X: change to blank
-      objElement.val = 0;
-      objElement.sty = "outlined";
+  function change(e, objElement) { // set is what we set it do, and its based on the initial value
+    if (e.buttons === 1) {
+      if (choiceStatus === 0 || choiceStatus === 2) {
+        objElement.val = 1
+        objElement.sty = "contained"
+        objElement.color = "primary"
+      } else if (choiceStatus === 1) {
+        objElement.val = 0
+        objElement.sty = "outlined"
+      }
+    } else if (e.buttons === 2) {
+      if (choiceStatus === 0 || choiceStatus === 1) {
+        objElement.val = 2
+        objElement.sty = "contained"
+        objElement.color = "error"
+      } else if (choiceStatus === 2) {
+        objElement.val = 0
+        objElement.sty = "outlined"
+      }
     }
   }
 
   const buttonMap = grid.map((objElement) => {
-    if (objElement.val === 2) // display X
-    {
-      return (
-        <Button
-          sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
-          key = {objElement.key}
-          onClick={(e) => {change(e, objElement); setGrid([...grid])}}
-          onContextMenu={(e) => {changeRight(e, objElement); setGrid([...grid])}}
-          variant={objElement.sty}
-          color={objElement.color}
-        >
-          <CloseIcon color="white" sx={{ width: "30px", height: "30px"}}/>
-        </Button>
-      );
-    }
-    else // do not display X
-    {
-      return (
-        <Button
-          sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%"}}
-          key = {objElement.key}
-          onClick={(e) => {change(e, objElement); setGrid([...grid])}}
-          onContextMenu={(e) => {changeRight(e, objElement); setGrid([...grid])}}
-          variant={objElement.sty}
-          color={objElement.color}
-        />
-      );
-    }
+    return (
+      <Button
+        sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
+        key = {objElement.key}
+        onClick = {(e) => {change(e, objElement); setGrid([...grid])}}
+        onMouseOver = {(e) => {change(e, objElement); setGrid([...grid])}}
+        onMouseDown = {(e) => {changeFirst(e, objElement); setGrid([...grid])}}
+        onContextMenu={(e) => {e.preventDefault()}}
+        variant={objElement.sty}
+        color={objElement.color}
+        value="x"
+      />
+    )
   });
 
   const colHMap = colH.map((objElement, index) => {
-    if (objElement.val == gridCols[index]) { // grid matches - grey out
+    if (objElement.val === gridCols[index]) { // grid matches - grey out
       return (
         <div className="textCol"
           key = {objElement.key}
@@ -140,7 +149,7 @@ const NonogramGame = () => {
   });
   
   const rowHMap = rowH.map((objElement, index) => {
-    if (objElement.val == gridRows[index]) { // grid matches - grey out
+    if (objElement.val === gridRows[index]) { // grid matches - grey out
       return (
         <div className="textRow"
           key = {objElement.key}
