@@ -230,7 +230,31 @@
   align-items: center;
 }
 
+.puzzleLinkButton {
+  display: block;
+  margin: auto;
+  position: fixed;
+  height: 50px;
+  width: 200px;
+  margin-top: 50%;
+  bottom: -90%;
+  right: 5%;
+  align-items: center;
+}
+
 .tutorial {
+  display: block;
+  margin: auto;
+  position: fixed;
+  height: 50px;
+  width: 150px;
+  margin-top: 50%;
+  bottom: -90%;
+  right: 5%;
+  align-items: center;
+}
+
+.createTutorial {
   display: block;
   margin: auto;
   position: fixed;
@@ -252,4 +276,10 @@
   bottom: -90%;
   right: 5%;
   align-items: center;
+}
+
+.linkInfo {
+  position: fixed;
+  bottom: 15%;
+  left: 5%;
 }
