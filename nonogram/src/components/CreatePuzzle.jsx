@@ -1,8 +1,5 @@
 import { Button, Popover, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close'; //FIXME
-import React, {useState, useEffect} from 'react';
-import example from "./example.png"
-
+import React, {useState } from 'react';
 
 const CreatePuzzle = () => {
   var i = 0;

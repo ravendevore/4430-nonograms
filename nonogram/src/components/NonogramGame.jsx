@@ -1,5 +1,4 @@
 import { Button, Popover, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close'; //FIXME
 import React, {useState, useEffect} from 'react';
 import example from "./example.png"
 
