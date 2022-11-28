@@ -290,10 +290,13 @@
   list-style: none;
 }
 
-.navItem {
-  padding-right: 50px;
+.navLink {
+  color:white;
+  padding: 20px;
+  margin: 10px;
+  text-decoration: none;
 }
 
-a:link {
-  color: white;
+.navActive {
+  background-color: dimgray;
 }
