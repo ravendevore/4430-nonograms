@@ -1,6 +1,5 @@
 import { Button, Popover, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close'; //FIXME
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import example from "./example.png"
 
 
@@ -116,7 +115,6 @@ const NonogramGame = () => {
       <Button
         sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
         key = {objElement.key}
-        onClick = {(e) => {change(e, objElement); setGrid([...grid])}}
         onMouseOver = {(e) => {change(e, objElement); setGrid([...grid])}}
         onMouseDown = {(e) => {changeFirst(e, objElement); setGrid([...grid])}}
         onContextMenu={(e) => {e.preventDefault()}}
