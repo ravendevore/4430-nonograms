@@ -1,11 +1,12 @@
 import { Button, Popover, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close'; //FIXME
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useCallback} from 'react';
 import example from "./example.png";
 
 
 
 const NonogramGame = () => {
+  
   var i = 0;
   const [dim] = useState(() => getDim())
   const [grid, setGrid] = useState(Array(dim*dim).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
@@ -19,6 +20,7 @@ const NonogramGame = () => {
   const [gameNo, setGameNo] = useState(0);
   const [winNo, setWinNo] = useState(0);
   const [bestTime, setBestTime] = useState(1000);
+
 
   // keeps track of grid state by cols/rows
   let gridCols = genNums(0,true)
@@ -291,22 +293,24 @@ const NonogramGame = () => {
     }
   }
 
-
   const startTimer = () => {
     timerId.current = setInterval(() => {
       setSeconds(prev => prev + 1);
     }, 1000)
   }
+
   const stopTimer = () => {
     clearInterval(timerId.current);
     timerId.current = 0;
   }
+
   const resetTimer = () => {
     stopTimer();
     if(seconds) {
       setSeconds(0);
     }
   }
+
   function removeAll(){
     for(var j=0; j<soln.length; j++){
       if(grid[j].val === 1 || grid[j].val ===2){
@@ -316,27 +320,62 @@ const NonogramGame = () => {
       }
   }
   }
-    function clearBoard() {
-      if(window.confirm('Are you sure you want to clear the board?')){
-        removeAll();
-      }
-    }
 
-
-    function newGame(){
-      if(window.confirm('Are you sure you want to start a new game?')){
-        removeAll();
-        resetTimer();
-        startTimer();
-        setSoln(() => randGrid());
-        setcolH(genNums(0,false).map((obj) => ({val: obj, key: i++})));
-        setrowH(genNums(1,false).map((obj) => ({val: obj, key: i++})));
-        setGameNo(prev => prev + 1);
+  function clearBoard() {
+    if(window.confirm('Are you sure you want to clear the board?')){
+      removeAll();
     }
   }
 
+  useEffect(()=> {
+          setcolH(genNums(0,false).map((obj) => ({val: obj, key: i++})));
+          setrowH(genNums(1,false).map((obj) => ({val: obj, key: i++})));
+  }, [soln]);
 
+  
+  function newGame(){
+    if(window.confirm('Are you sure you want to start a new game?')){
+      removeAll();
+      resetTimer();
+      startTimer();
+      setSoln(() => randGrid());
+      setGameNo(prev => prev + 1);
+    }
+  }
 
+  const useEffectOnce = ( effect )=> {
+
+    const destroyFunc = useRef();
+    const effectCalled = useRef(false);
+    const renderAfterCalled = useRef(false);
+    const [val, setVal] = useState(0);
+  
+    if (effectCalled.current) {
+        renderAfterCalled.current = true;
+    }
+  
+    useEffect( ()=> {
+  
+        // only execute the effect first time around
+        if (!effectCalled.current) { 
+          destroyFunc.current = effect();
+          effectCalled.current = true;
+        }
+  
+        // this forces one render after the effect is run
+        setVal(val => val + 1);
+  
+        return ()=> {
+          // if the comp didn't render since the useEffect was called,
+          // we know it's the dummy React cycle
+          if (!renderAfterCalled.current) { return; }
+          if (destroyFunc.current) { destroyFunc.current(); }
+        };
+    }, []);
+  };
+  useEffectOnce( ()=> {
+    startTimer();
+});
 
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -351,7 +390,6 @@ const NonogramGame = () => {
 
   return (
     <React.Fragment>
-      
       <div className={"size-" + dim}>
         <div className="grid">
           <div className="gridColH">
