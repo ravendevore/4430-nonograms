@@ -1,7 +1,8 @@
 import { Button, Popover, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close'; //FIXME
-import React, {useState} from 'react';
-import example from "./example.png"
+import React, {useState, useRef, useEffect} from 'react';
+import example from "./example.png";
+
 
 
 const NonogramGame = () => {
@@ -9,13 +10,21 @@ const NonogramGame = () => {
   const [dim] = useState(() => getDim())
   const [grid, setGrid] = useState(Array(dim*dim).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
   
-  const [soln] = useState(() => randGrid())
-  const [colH] = useState(genNums(0,false).map((obj) => ({val: obj, key: i++})))
-  const [rowH] = useState(genNums(1,false).map((obj) => ({val: obj, key: i++})))
+  const [soln, setSoln] = useState(() => randGrid())
+  const [colH, setcolH] = useState(genNums(0,false).map((obj) => ({val: obj, key: i++})))
+  const [rowH, setrowH] = useState(genNums(1,false).map((obj) => ({val: obj, key: i++})))
+
+  const timerId = useRef();
+  const [seconds, setSeconds] = useState(0);
+  const [gameNo, setGameNo] = useState(0);
+  const [winNo, setWinNo] = useState(0);
+  const [bestTime, setBestTime] = useState(1000);
 
   // keeps track of grid state by cols/rows
   let gridCols = genNums(0,true)
   let gridRows = genNums(1,true)
+
+
 
   /*const soln = [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
@@ -119,7 +128,7 @@ const NonogramGame = () => {
   });
 
   const colHMap = colH.map((objElement, index) => {
-    if (objElement.val == gridCols[index]) { // grid matches - grey out
+    if (objElement.val === gridCols[index]) { // grid matches - grey out
       return (
         <div className="textCol"
           key = {objElement.key}
@@ -140,7 +149,7 @@ const NonogramGame = () => {
   });
   
   const rowHMap = rowH.map((objElement, index) => {
-    if (objElement.val == gridRows[index]) { // grid matches - grey out
+    if (objElement.val === gridRows[index]) { // grid matches - grey out
       return (
         <div className="textRow"
           key = {objElement.key}
@@ -170,9 +179,16 @@ const NonogramGame = () => {
         correct = false
       }
     }
-    alert(correct ? "Solution is correct!" : "Solution is not correct...") 
+    alert(correct ? "Solution is correct!" : "Solution is not correct...")
+    if(correct){
+      stopTimer();
+      setWinNo(prev => prev + 1);
+      if(seconds<bestTime){
+        setBestTime(seconds);
+      }
+    }
   }
- 
+
   function genNums(isRow, isGrid) {
     const solnDim = dim
     let fullList = []
@@ -203,6 +219,7 @@ const NonogramGame = () => {
     }
     return fullList
   }
+ 
 
   function giveHint() {
     let hintToGive = determineHint()
@@ -274,6 +291,54 @@ const NonogramGame = () => {
     }
   }
 
+
+  const startTimer = () => {
+    timerId.current = setInterval(() => {
+      setSeconds(prev => prev + 1);
+    }, 1000)
+  }
+  const stopTimer = () => {
+    clearInterval(timerId.current);
+    timerId.current = 0;
+  }
+  const resetTimer = () => {
+    stopTimer();
+    if(seconds) {
+      setSeconds(0);
+    }
+  }
+  function removeAll(){
+    for(var j=0; j<soln.length; j++){
+      if(grid[j].val === 1 || grid[j].val ===2){
+        grid[j].val = 0;
+        grid[j].sty = 'outlined';
+        setGrid([...grid])
+      }
+  }
+  }
+    function clearBoard() {
+      if(window.confirm('Are you sure you want to clear the board?')){
+        removeAll();
+      }
+    }
+
+
+    function newGame(){
+      if(window.confirm('Are you sure you want to start a new game?')){
+        removeAll();
+        resetTimer();
+        startTimer();
+        setSoln(() => randGrid());
+        setcolH(genNums(0,false).map((obj) => ({val: obj, key: i++})));
+        setrowH(genNums(1,false).map((obj) => ({val: obj, key: i++})));
+        setGameNo(prev => prev + 1);
+    }
+  }
+
+
+
+
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -286,6 +351,7 @@ const NonogramGame = () => {
 
   return (
     <React.Fragment>
+      
       <div className={"size-" + dim}>
         <div className="grid">
           <div className="gridColH">
@@ -299,7 +365,7 @@ const NonogramGame = () => {
           </div>
         </div>
       </div>
-
+      
       <Button className="solnButton"
         onClick={() => checkSolution()}
         variant = "contained"
@@ -321,6 +387,33 @@ const NonogramGame = () => {
         Get Hint
       </Button>
 
+      <Button className='tutorial'
+      variant='contained'
+      onClick={() => clearBoard()}
+      >
+        Clear Board
+      </Button>
+
+
+  
+      <Button className='tutorial'
+      variant='contained'
+      onClick={() => newGame()}
+      >
+        New Game
+      </Button>
+
+      <p>Time: {seconds}
+      <br></br>
+      Games played: {gameNo}
+      <br></br>
+      Games won: {winNo}
+      <br></br>
+      win %: {100*(winNo/gameNo)}
+      <br></br>
+      best time: {bestTime}</p>
+
+
       <Popover
         id={id}
         open={open}
@@ -336,7 +429,7 @@ const NonogramGame = () => {
         <Typography sx={{ p: 2 }}>
           -Numbers on the side of each row and column correspond to “blocks” of squares than should be filled in
         </Typography>
-          <img src={example} />
+          <img src={example} alt = "game instructions" />
           <Typography sx={{ p: 2 }}>-Left click to fill in squares</Typography>
         <Typography sx={{ p: 2 }}>-Right click to mark squares as blank</Typography>
       </Popover>
