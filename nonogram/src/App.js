@@ -2,9 +2,17 @@ import './App.css';
 import React from 'react';
 import NonogramGame from './components/NonogramGame';
 import CreatePuzzle from './components/CreatePuzzle';
-import { Routes, Route, NavLink } from 'react-router-dom';
+import RedirectElement from './components/RedirectElement';
+import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 
 function App() {
+
+  const navigate = useNavigate()
+
+  function redirectTo(destURL) { // without this the component won't reload
+    navigate('/redirect')
+    setTimeout( () => {navigate(destURL)},100)
+  }
 
   return (
     <div className="App">
@@ -13,9 +21,9 @@ function App() {
           <div className="dropdownSolve">
             <NavLink className={({isActive}) => isActive ? "navSolve navActive": "navSolve" } to="/">Solve a Random Puzzle</NavLink>
             <div className="dropdownSolveContent">
-              <a href="/?dim=5" className="solveLink" >5 x 5</a>
-              <a href="/?dim=10" className="solveLink" >10 x 10</a>
-              <a href="/?dim=15" className="solveLink" >15 x 15</a>
+              <div className="solveLink" onClick={() => redirectTo("/?dim=5")}>5 x 5</div>
+              <div className="solveLink" onClick={() => redirectTo("/?dim=10")}>10 x 10</div>
+              <div className="solveLink" onClick={() => redirectTo("/?dim=15")}>15 x 15</div>
             </div>
           </div>
         </li>
@@ -23,9 +31,9 @@ function App() {
           <div className="dropdownCreate">
             <NavLink className={({isActive}) => isActive ? "navCreate navActive": "navCreate" } to="/create">Create Your Own</NavLink>
             <div className="dropdownCreateContent">
-              <a href="/create?dim=5" className="solveLink" >5 x 5</a>
-              <a href="/create?dim=10" className="solveLink" >10 x 10</a>
-              <a href="/create?dim=15" className="solveLink" >15 x 15</a>
+              <div className="solveLink" onClick={() => redirectTo("/create?dim=5")}>5 x 5</div>
+              <div className="solveLink" onClick={() => redirectTo("/create?dim=10")}>10 x 10</div>
+              <div className="solveLink" onClick={() => redirectTo("/create?dim=15")}>15 x 15</div>
             </div>
           </div>
         </li>
@@ -33,6 +41,7 @@ function App() {
       <Routes>
         <Route path="/" element={<NonogramGame />}/>
         <Route path="/create" element={<CreatePuzzle />}/>
+        <Route path="/redirect" element={<RedirectElement />}/>
       </Routes>
     </div>
   );
