@@ -123,7 +123,7 @@ const CreatePuzzle = () => {
   function createPuzzleLink() {
     // FIXME - need to return link in format based on Marshall's implementation
     // Currently just appends the puzzle data in binary
-    let puzzleURL = "https://localhost:3000?data="
+    let puzzleURL = "http://localhost:3000?dim=" + dim + "&data="
     for(var j = 0; j < grid.length; j++) {
       if (grid[j].val === 1) {
         puzzleURL += "1"
