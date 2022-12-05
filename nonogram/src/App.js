@@ -39,23 +39,3 @@ function App() {
 }
 
 export default App;
-
-// function App() {
-
-//   return (
-//     <div className="App">
-//       <ul className="navbar">
-//         <li>
-//           <NavLink className={({isActive}) => isActive ? "navSolve navActive": "navSolve" } to="/">Solve a Random Puzzle</NavLink>
-//         </li>
-//         <li>
-//           <NavLink className={({isActive}) => isActive ? "navCreate navActive": "navCreate" } to="/create">Create Your Own</NavLink>
-//         </li>
-//       </ul>
-//       <Routes>
-//         <Route path="/" element={<NonogramGame />}/>
-//         <Route path="/create" element={<CreatePuzzle />}/>
-//       </Routes>
-//     </div>
-//   );
-// }
