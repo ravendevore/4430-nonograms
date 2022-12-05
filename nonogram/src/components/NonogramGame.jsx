@@ -68,8 +68,7 @@ const NonogramGame = () => {
     } else if (e.buttons === 2) {
       if (choiceStatus === 0 || choiceStatus === 1) {
         objElement.val = 2
-        objElement.sty = "contained"
-        objElement.color = "error"
+        objElement.sty = "outlined"
       } else if (choiceStatus === 2) {
         objElement.val = 0
         objElement.sty = "outlined"
@@ -90,8 +89,7 @@ const NonogramGame = () => {
     } else if (e.buttons === 2) {
       if (choiceStatus === 0 || choiceStatus === 1) {
         objElement.val = 2
-        objElement.sty = "contained"
-        objElement.color = "error"
+        objElement.sty = "outlined"
       } else if (choiceStatus === 2) {
         objElement.val = 0
         objElement.sty = "outlined"
@@ -100,18 +98,32 @@ const NonogramGame = () => {
   }
 
   const buttonMap = grid.map((objElement) => {
-    return (
-      <Button
-        sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
-        key = {objElement.key}
-        onMouseOver = {(e) => {change(e, objElement); setGrid([...grid])}}
-        onMouseDown = {(e) => {changeFirst(e, objElement); setGrid([...grid])}}
-        onContextMenu={(e) => {e.preventDefault()}}
-        variant={objElement.sty}
-        color={objElement.color}
-        value="x"
-      />
-    )
+    if (objElement.val === 2) {
+      return (
+        <Button
+          sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
+          key = {objElement.key}
+          onMouseOver = {(e) => {change(e, objElement); setGrid([...grid])}}
+          onMouseDown = {(e) => {changeFirst(e, objElement); setGrid([...grid])}}
+          onContextMenu={(e) => {e.preventDefault()}}
+          variant={objElement.sty}
+          color={objElement.color}
+        >X</Button>
+      )
+    }
+    else {
+      return (
+        <Button
+          sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
+          key = {objElement.key}
+          onMouseOver = {(e) => {change(e, objElement); setGrid([...grid])}}
+          onMouseDown = {(e) => {changeFirst(e, objElement); setGrid([...grid])}}
+          onContextMenu={(e) => {e.preventDefault()}}
+          variant={objElement.sty}
+          color={objElement.color}
+        />
+      )
+    }
   });
 
   const colHMap = colH.map((objElement, index) => {
@@ -222,8 +234,7 @@ const NonogramGame = () => {
           setGrid([...grid])
         } else { // blank - change to "X" for clarity
           grid[cellIndex].val = 2;
-          grid[cellIndex].sty = "contained";
-          grid[cellIndex].color = "error";
+          grid[cellIndex].sty = "outlined";
           setGrid([...grid])
         }
       }
