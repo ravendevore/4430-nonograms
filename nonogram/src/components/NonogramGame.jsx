@@ -18,7 +18,7 @@ const NonogramGame = () => {
 
   const timerId = useRef();
   const [seconds, setSeconds] = useState(0);
-  const [gameNo, setGameNo] = useState(0);
+  const [gameNo, setGameNo] = useState(1);
   const [winNo, setWinNo] = useState(0);
   const [bestTime, setBestTime] = useState(1000);
 
@@ -432,7 +432,7 @@ const NonogramGame = () => {
       <br></br>
       Games won: {winNo}
       <br></br>
-      win %: {100*(winNo/gameNo)}
+      win %: {(100*(winNo/gameNo)).toFixed(2)}
       <br></br>
       best time: {bestTime}</p>
 
