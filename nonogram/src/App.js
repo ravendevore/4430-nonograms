@@ -10,10 +10,10 @@ function App() {
     <div className="App">
       <ul className="navbar">
         <li>
-          <NavLink className={({isActive}) => isActive ? "navLink navActive": "navLink" } to="/">Solve a Random Puzzle</NavLink>
+          <NavLink className={({isActive}) => isActive ? "navSolve navActive": "navSolve" } to="/">Solve a Random Puzzle</NavLink>
         </li>
         <li>
-          <NavLink className={({isActive}) => isActive ? "navLink navActive": "navLink" } to="/create">Create Your Own</NavLink>
+          <NavLink className={({isActive}) => isActive ? "navCreate navActive": "navCreate" } to="/create">Create Your Own</NavLink>
         </li>
       </ul>
       <Routes>
