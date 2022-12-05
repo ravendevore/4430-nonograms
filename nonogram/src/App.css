@@ -315,6 +315,7 @@
   padding: 20px;
   margin: 10px;
   text-decoration: none;
+  border: 1px solid white;
 }
 
 .navCreate {
@@ -324,8 +325,53 @@
   padding: 20px;
   margin: 10px;
   text-decoration: none;
+  border: 1px solid white;
 }
 
 .navActive {
+  background-color: dimgray;
+}
+
+.solveLink {
+  display: block;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid white;
+}
+
+.dropdownSolve, .dropdownCreate {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownSolveContent {
+  display: none;
+  position: fixed;
+  left: 0px;
+  top: 58px;
+  width: 204.5px;
+  background-color: gray;
+}
+
+.dropdownSolve:hover .dropdownSolveContent {
+  display: block;
+}
+
+.dropdownCreateContent {
+  display: none;
+  position: fixed;
+  left: 224.5px;
+  top: 58px;
+  width: 160px;
+  background-color: gray;
+}
+
+.dropdownCreate:hover .dropdownCreateContent {
+  display: block;
+}
+
+.solveLink:hover {
   background-color: dimgray;
 }
