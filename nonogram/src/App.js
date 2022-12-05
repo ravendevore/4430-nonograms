@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import NonogramGame from './components/NonogramGame';
 import CreatePuzzle from './components/CreatePuzzle';
-import { Routes, Route, NavLink, Link } from 'react-router-dom';
+import { Routes, Route, NavLink } from 'react-router-dom';
 
 function App() {
 

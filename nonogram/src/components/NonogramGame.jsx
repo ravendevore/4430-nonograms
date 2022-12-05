@@ -1,5 +1,5 @@
 import { Button, Popover, Typography } from '@mui/material';
-import React, {useState, useRef, useEffect, useCallback} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import example from "./example.png";
 
 
@@ -421,7 +421,7 @@ const NonogramGame = () => {
         Get Hint
       </Button>
 
-      <Button className='tutorial'
+      <Button className="clearButton"
       variant='contained'
       onClick={() => clearBoard()}
       >
@@ -430,14 +430,14 @@ const NonogramGame = () => {
 
 
   
-      <Button className='tutorial'
+      <Button className="newGameButton"
       variant='contained'
       onClick={() => newGame()}
       >
         New Game
       </Button>
 
-      <p>Time: {seconds}
+      <p className="gameStats">Time: {seconds}
       <br></br>
       Games played: {gameNo}
       <br></br>

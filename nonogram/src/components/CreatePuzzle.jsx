@@ -10,8 +10,7 @@ const CreatePuzzle = () => {
   const [rowH] = useState(genNums(1).map((obj) => ({val: obj, key: i++})))
 
   const [choiceStatus, setChoiceStatus] = useState(0)
-  const [showLink, setShowLink] = useState(false)
-  const [displayURL, setDisplayURL] = useState("Puzzle has not been created yet.")
+  const [linkButtonText, setLinkButtonText] = useState("GET PUZZLE LINK");
 
   // keeps track of grid state by cols/rows
   let gridCols = genNums(0)
@@ -135,8 +134,11 @@ const CreatePuzzle = () => {
         puzzleURL += "0"
       }
     }
-    setDisplayURL(puzzleURL)
-    setShowLink(true)
+    navigator.clipboard.writeText(puzzleURL)
+    setLinkButtonText("COPIED!")
+    setTimeout(() => {
+      setLinkButtonText("GET PUZZLE LINK")
+    }, 1000)
   }
  
   function genNums(isRow) {
@@ -170,6 +172,22 @@ const CreatePuzzle = () => {
     return fullList
   }
 
+  function removeAll(){
+    for(var j=0; j<grid.length; j++){
+      if(grid[j].val === 1 || grid[j].val ===2){
+        grid[j].val = 0;
+        grid[j].sty = 'outlined';
+        setGrid([...grid])
+      }
+    }
+  }
+
+  function clearBoard() {
+    if(window.confirm('Are you sure you want to clear the board?')){
+      removeAll();
+    }
+  }
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -200,7 +218,7 @@ const CreatePuzzle = () => {
         onClick={() => createPuzzleLink()}
         variant = "contained"
       >
-        Get Puzzle Link
+        {linkButtonText}
       </Button>
       
       <Button className="createTutorial"
@@ -209,17 +227,13 @@ const CreatePuzzle = () => {
       >
         How It Works
       </Button>
-  
-      {showLink && (
-        <div className="linkInfo">
-          <span className="link" style={{color: "white"}}>{displayURL}</span>
-          <Button className="copyLink"
-          onClick={() => navigator.clipboard.writeText(displayURL)}
-          >
-            Copy Link
-          </Button>
-        </div>
-      )}
+
+      <Button className="clearCreateButton"
+      variant='contained'
+      onClick={() => clearBoard()}
+      >
+        Clear Board
+      </Button>
 
       <Popover
         id={id}

@@ -208,7 +208,6 @@
   border-left: 1px solid #999999;
 }
 
-
 .gridRowH {
   grid-row: 2;
   grid-column: 1;
@@ -244,7 +243,7 @@
   width: 200px;
   margin-top: 50%;
   bottom: -90%;
-  right: -11.5%;
+  right: 5%;
   align-items: center;
 }
 
@@ -256,7 +255,43 @@
   width: 175px;
   margin-top: 50%;
   bottom: -90%;
-  right: -5%;
+  right: -12.2%;
+  align-items: center;
+}
+
+.clearButton {
+  display: block;
+  margin: auto;
+  position: fixed;
+  height: 50px;
+  width: 150px;
+  margin-top: 50%;
+  bottom: -90%;
+  right: 5%;
+  align-items: center;
+}
+
+.clearCreateButton {
+  display: block;
+  margin: auto;
+  position: fixed;
+  height: 50px;
+  width: 150px;
+  margin-top: 50%;
+  bottom: -90%;
+  right: -7%;
+  align-items: center;
+}
+
+.newGameButton {
+  display: block;
+  margin: auto;
+  position: fixed;
+  height: 50px;
+  width: 150px;
+  margin-top: 50%;
+  bottom: -90%;
+  right: 0%;
   align-items: center;
 }
 
@@ -268,7 +303,7 @@
   width: 150px;
   margin-top: 50%;
   bottom: -90%;
-  right: 20%;
+  right: 33%;
   align-items: center;
 }
 
@@ -277,10 +312,10 @@
   margin: auto;
   position: fixed;
   height: 50px;
-  width: 175px;
+  width: 150px;
   margin-top: 50%;
   bottom: -90%;
-  right: -8%;
+  right: 14%;
   align-items: center;
 }
 
@@ -292,7 +327,7 @@
   width: 150px;
   margin-top: 50%;
   bottom: -90%;
-  right: -10%;
+  right: 10%;
   align-items: center;
 }
 
@@ -380,4 +415,11 @@ p {
 
 .solveLink:hover {
   background-color: dimgray;
+}
+
+.gameStats {
+  width: 150px;
+  height: 110px;
+  padding: 10px;
+  border: 1px solid white;
 }
