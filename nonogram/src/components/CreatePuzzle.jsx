@@ -77,7 +77,6 @@ const CreatePuzzle = () => {
         <Button
           sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
           key = {objElement.key}
-          onClick = {(e) => {change(e, objElement); setGrid([...grid])}}
           onMouseOver = {(e) => {change(e, objElement); setGrid([...grid])}}
           onMouseDown = {(e) => {changeFirst(e, objElement); setGrid([...grid])}}
           onContextMenu={(e) => {e.preventDefault()}}
@@ -91,7 +90,6 @@ const CreatePuzzle = () => {
         <Button
           sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
           key = {objElement.key}
-          onClick = {(e) => {change(e, objElement); setGrid([...grid])}}
           onMouseOver = {(e) => {change(e, objElement); setGrid([...grid])}}
           onMouseDown = {(e) => {changeFirst(e, objElement); setGrid([...grid])}}
           onContextMenu={(e) => {e.preventDefault()}}
