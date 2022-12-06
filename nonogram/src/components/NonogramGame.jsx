@@ -312,7 +312,6 @@ const NonogramGame = () => {
       if(grid[j].val === 1 || grid[j].val ===2){
         grid[j].val = 0;
         grid[j].sty = 'outlined';
-        setGrid([...grid])
       }
   }
   }
@@ -326,7 +325,8 @@ const NonogramGame = () => {
   useEffect(()=> {
           setcolH(genNums(0,false).map((obj) => ({val: obj, key: i++})));
           setrowH(genNums(1,false).map((obj) => ({val: obj, key: i++})));
-  }, [soln]);
+          setGrid([...grid]);
+  }, [soln, grid]);
 
   
   function newGame(){
