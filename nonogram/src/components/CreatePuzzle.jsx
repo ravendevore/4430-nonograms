@@ -1,5 +1,5 @@
 import { Button, Popover, Typography } from '@mui/material';
-import React, {useState } from 'react';
+import React, {useState, useEffect} from 'react';
 
 const CreatePuzzle = () => {
   var i = 0;
@@ -186,10 +186,14 @@ const CreatePuzzle = () => {
       if(grid[j].val === 1 || grid[j].val ===2){
         grid[j].val = 0;
         grid[j].sty = 'outlined';
-        setGrid([...grid])
+        // setGrid([...grid])
       }
     }
   }
+
+  useEffect(()=> {
+    setGrid([...grid]);
+  }, [grid]);
 
   function clearBoard() {
     if(window.confirm('Are you sure you want to clear the board?')){
