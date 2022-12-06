@@ -57,19 +57,19 @@ const NonogramGame = () => {
   function changeFirst(e, objElement) {
     setChoiceStatus(objElement.val)
     if (e.buttons === 1) {
-      if (choiceStatus === 0) {
+      if (objElement.val === 0 || objElement.val === 2) {
         objElement.val = 1
         objElement.sty = "contained"
         objElement.color = "primary"
-      } else if (choiceStatus === 1 || choiceStatus === 2) {
+      } else if (objElement.val === 1) {
         objElement.val = 0
         objElement.sty = "outlined"
       }
     } else if (e.buttons === 2) {
-      if (choiceStatus === 0 || choiceStatus === 1) {
+      if (objElement.val === 0 || objElement.val === 1) {
         objElement.val = 2
         objElement.sty = "outlined"
-      } else if (choiceStatus === 2) {
+      } else if (objElement.val === 2) {
         objElement.val = 0
         objElement.sty = "outlined"
       }
@@ -312,6 +312,7 @@ const NonogramGame = () => {
       if(grid[j].val === 1 || grid[j].val ===2){
         grid[j].val = 0;
         grid[j].sty = 'outlined';
+        setGrid([...grid])
       }
   }
   }
@@ -325,8 +326,7 @@ const NonogramGame = () => {
   useEffect(()=> {
           setcolH(genNums(0,false).map((obj) => ({val: obj, key: i++})));
           setrowH(genNums(1,false).map((obj) => ({val: obj, key: i++})));
-          setGrid([...grid]);
-  }, [soln, grid]);
+  }, [soln]);
 
   
   function newGame(){
