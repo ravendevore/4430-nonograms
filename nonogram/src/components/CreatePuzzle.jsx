@@ -121,19 +121,30 @@ const CreatePuzzle = () => {
   });
 
   function createPuzzleLink() {
-    // FIXME - need to return link in format based on Marshall's implementation
-    // Currently just appends the puzzle data in binary
-    let puzzleURL = "http://localhost:3000?dim=" + dim + "&data="
-    for(var j = 0; j < grid.length; j++) {
+    let puzzleURL = "http://localhost:3000?dim=" + dim + "&data=" // base URL
+    let puzzleData = ""
+    for(var j = 0; j < grid.length; j++) { // get the binary data from the grid
       if (grid[j].val === 1) {
-        puzzleURL += "1"
+        puzzleData += "1"
       }
       else {
-        puzzleURL += "0"
+        puzzleData += "0"
       }
     }
-    navigator.clipboard.writeText(puzzleURL)
-    setLinkButtonText("COPIED!")
+
+    while (puzzleData.length % 4 !== 0) { // add leading 0s for better hex conversion
+      puzzleData = "0" + puzzleData
+    }
+
+    for (let i = 0; i < puzzleData.length / 4; i++) { // convert binary to hex, 4 chars at a time
+      let binarySubstr = puzzleData.substring(i*4,i*4+4)
+      let hexSubstr = parseInt(binarySubstr, 2).toString(16)
+      puzzleURL += hexSubstr
+    }
+
+    navigator.clipboard.writeText(puzzleURL) // copy URL to clipboard
+    
+    setLinkButtonText("COPIED!") // button indicates that link was copied
     setTimeout(() => {
       setLinkButtonText("GET PUZZLE LINK")
     }, 1000)
