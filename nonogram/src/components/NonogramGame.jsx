@@ -326,7 +326,7 @@ const NonogramGame = () => {
   useEffect(()=> {
           setcolH(genNums(0,false).map((obj) => ({val: obj, key: i++})));
           setrowH(genNums(1,false).map((obj) => ({val: obj, key: i++})));
-  }, [soln]);
+  }, [soln, grid]);
 
   
   function newGame(){
