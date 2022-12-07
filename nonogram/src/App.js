@@ -10,7 +10,14 @@ import { Button } from '@mui/material';
 function App() {
 
   const navigate = useNavigate()
-  const [theme, setTheme] = useState("darkMode")
+
+  let startTheme = "darkMode"
+  if (!localStorage)
+  {
+    localStorage.setItem("theme", "darkMode")
+  }
+  startTheme = localStorage.getItem("theme")
+  const [theme, setTheme] = useState(startTheme)
 
   function redirectTo(destURL) { // without this the component won't reload
     navigate('/redirect')
@@ -18,8 +25,14 @@ function App() {
   }
 
   function toggleTheme() {
-    if (theme === "darkMode") { setTheme("lightMode") }
-    else { setTheme("darkMode")}
+    if (theme === "darkMode") { 
+      setTheme("lightMode")
+      localStorage.setItem("theme", "lightMode")
+    }
+    else { 
+      setTheme("darkMode")
+      localStorage.setItem("theme", "darkMode")
+    }
   }
 
   return (
