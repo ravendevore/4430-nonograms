@@ -1,0 +1,19 @@
+.darkMode {
+    --background-color: black;
+    --nav-background-color: dimgray;
+    --select-color: gray;
+    --text-color: white;
+    --main-border: white;
+    --contrast-border: #999999;
+    --secondary-border: #404040;
+}
+
+.lightMode {
+    --background-color: white;
+    --nav-background-color: rgb(170, 170, 170);
+    --select-color: rgb(198, 198, 198);
+    --text-color: black;
+    --main-border: black;
+    --contrast-border: rgb(50,50,50);
+    --secondary-border: rgb(198, 198, 198);
+}

@@ -1,4 +1,5 @@
-import { Button, Popover, Typography } from '@mui/material';
+import { RowingRounded } from '@mui/icons-material';
+import { Button, Popover, rgbToHex, Typography } from '@mui/material';
 import React, {useState, useRef, useEffect} from 'react';
 import example from "./example.png";
 
@@ -130,7 +131,7 @@ const NonogramGame = () => {
     if (objElement.val === 2) {
       return (
         <Button
-          sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
+          sx={{borderRadius: "0px", margin: "0px", border: "1px solid var(--secondary-border)", height: "100%", width: "100%", padding: "0"}}
           key = {objElement.key}
           onMouseOver = {(e) => {change(e, objElement); setGrid([...grid])}}
           onMouseDown = {(e) => {changeFirst(e, objElement); setGrid([...grid])}}
@@ -143,7 +144,7 @@ const NonogramGame = () => {
     else {
       return (
         <Button
-          sx={{borderRadius: "0px", margin: "0px", border: "1px solid #404040", height: "100%", width: "100%", padding: "0"}}
+          sx={{borderRadius: "0px", margin: "0px", border: "1px solid var(--secondary-border)", height: "100%", width: "100%", padding: "0"}}
           key = {objElement.key}
           onMouseOver = {(e) => {change(e, objElement); setGrid([...grid])}}
           onMouseDown = {(e) => {changeFirst(e, objElement); setGrid([...grid])}}

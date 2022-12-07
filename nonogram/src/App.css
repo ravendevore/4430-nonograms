@@ -1,5 +1,5 @@
 .App {
-  background-color: black;
+  background-color: var(--background-color);
   position: fixed;
   display: flex;
   margin: 0;
@@ -17,36 +17,36 @@
 
 .textCol, .textRow {
   display: flex;
-  color: white;
+  color: var(--text-color);
   font-size: 1.70em;
   justify-content: center;
   align-items: flex-end;
 }
 
 .textCol {
-  border-left: 1px solid #404040;
-  border-right: 1px solid #404040;
+  border-left: 1px solid var(--secondary-border);
+  border-right: 1px solid var(--secondary-border);
   text-align: center;
   width: 35px;
 }
 .textCol:first-child {
-  border-left: 1px solid white;
+  border-left: 1px solid var(--main-border);
 }
 .textCol:last-child {
-  border-right: 1px solid white;
+  border-right: 1px solid var(--main-border);
 }
 
 .textRow {
-  border-top: 1px solid #404040;
-  border-bottom: 1px solid #404040;
+  border-top: 1px solid var(--secondary-border);
+  border-bottom: 1px solid var(--secondary-border);
 	flex-direction: column;
   padding: 0 5px;
 }
 .textRow:first-child {
-  border-top: 1px solid white;
+  border-top: 1px solid var(--main-border);
 }
 .textRow:last-child {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--main-border);
 }
 
 .grid {
@@ -77,7 +77,7 @@
 	grid-row: 2;
 	grid-column: 2;
 	display: grid;
-	border: 1px solid white;
+	border: 1px solid var(--main-border);
 	align-items: center;
 }
 
@@ -95,98 +95,98 @@
 /*creates white border on edge of .gridCont, by size*/
 /*top for size 5*/
 .size-5 .gridCont .MuiButtonBase-root:nth-child(n):nth-child(-n+5) {
-  border-top: 1px solid white; 
+  border-top: 1px solid var(--main-border); 
 }
 /*bottom for size 5*/
 .size-5.gridCont .MuiButtonBase-root:nth-child(n+21):nth-child(-n+25) {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--main-border);
 }
 /*left for size 5*/
 .size-5 .gridCont .MuiButtonBase-root:nth-child(5n+1) {
-  border-left: 1px solid white;
+  border-left: 1px solid var(--main-border);
 }
 /*right for size 5*/
 .size-5 .gridCont .MuiButtonBase-root:nth-child(5n) {
-  border-right: 1px solid white;
+  border-right: 1px solid var(--main-border);
 }
 
 /*top for size 10*/
 .size-10 .gridCont .MuiButtonBase-root:nth-child(n):nth-child(-n+10) {
-  border-top: 1px solid white; 
+  border-top: 1px solid var(--main-border); 
 }
 /*bottom for size 10*/
 .size-10 .gridCont .MuiButtonBase-root:nth-child(n+91):nth-child(-n+100) {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--main-border);
 }
 /*left for size 10*/
 .size-5 .gridCont .MuiButtonBase-root:nth-child(10n+1) {
-  border-left: 1px solid white;
+  border-left: 1px solid var(--main-border);
 }
 /*right for size 10*/
 .size-5 .gridCont .MuiButtonBase-root:nth-child(10n) {
-  border-right: 1px solid white;
+  border-right: 1px solid var(--main-border);
 }
 
 /*top for size 15*/
 .size-15 .gridCont .MuiButtonBase-root:nth-child(n):nth-child(-n+15) {
-  border-top: 1px solid white; 
+  border-top: 1px solid var(--main-border); 
 }
 /*bottom for size 15*/
 .size-15 .gridCont .MuiButtonBase-root:nth-child(n+211):nth-child(-n+225) {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--main-border);
 }
 /*left for size 15*/
 .size-15 .gridCont .MuiButtonBase-root:nth-child(15n+1) {
-  border-left: 1px solid white;
+  border-left: 1px solid var(--main-border);
 }
 /*right for size 15*/
 .size-15 .gridCont .MuiButtonBase-root:nth-child(15n) {
-  border-right: 1px solid white;
+  border-right: 1px solid var(--main-border)e;
 }
 
 /*vertical content dividing lines*/
 /*vertical lines, left border for size 15*/
 .size-15 .gridCont .MuiButtonBase-root:nth-child(15n-9), .size-15 .gridCont .MuiButtonBase-root:nth-child(15n-4) {
-  border-left: 1px solid #999999;
+  border-left: 1px solid var(--contrast-border);
 }
 /*vertical lines, right border for size 15*/
 .size-15 .gridCont .MuiButtonBase-root:nth-child(15n-10), .size-15 .gridCont .MuiButtonBase-root:nth-child(15n-5) {
-  border-right: 1px solid #999999;
+  border-right: 1px solid var(--contrast-border);
 }
 /*vertical line, left border for size 10*/
 .size-10 .gridCont .MuiButtonBase-root:nth-child(10n-4) {
-  border-left: 1px solid #999999;
+  border-left: 1px solid var(--contrast-border);
 }
 /*vertical line, right border for size 10*/
 .size-10 .gridCont .MuiButtonBase-root:nth-child(10n-5) {
-  border-right: 1px solid #999999;
+  border-right: 1px solid var(--contrast-border);
 }
 
 /*horizontal content dividing lines*/
 /*horizontal line, bottom border for size 10*/
 .size-10 .gridCont .MuiButtonBase-root:nth-child(n+41):nth-child(-n+50) {
-  border-bottom: 1px solid #999999;
+  border-bottom: 1px solid var(--contrast-border);
 }
 /*horizontal line, top border for size 10*/
 .size-10 .gridCont .MuiButtonBase-root:nth-child(n+51):nth-child(-n+60) {
-  border-top: 1px solid #999999;
+  border-top: 1px solid var(--contrast-border);
 }
 /*horizontal lines, bottom borders for size 15*/
 .size-15 .gridCont .MuiButtonBase-root:nth-child(n+76):nth-child(-n+90), .size-15 .gridCont .MuiButtonBase-root:nth-child(n+151):nth-child(-n+165) {
-  border-top: 1px solid #999999;
+  border-top: 1px solid var(--contrast-border);
 }
 /*horizontal lines, top borders for size 15*/
 .size-15 .gridCont .MuiButtonBase-root:nth-child(n+61):nth-child(-n+75), .size-15 .gridCont .MuiButtonBase-root:nth-child(n+136):nth-child(-n+150) {
-  border-bottom: 1px solid #999999;
+  border-bottom: 1px solid var(--contrast-border);
 }
 
 .gridColH {
   grid-row: 1;
   grid-column: 2;
   display: grid;
-  border-left: 1px solid white;
-  border-top: 1px solid white;
-  border-right: 1px solid white;
+  border-left: 1px solid var(--main-border);
+  border-top: 1px solid var(--main-border);
+  border-right: 1px solid var(--main-border);
 }
 
 /*determines number of column headers based on size*/
@@ -202,19 +202,19 @@
 
 /*column header lines every 5*/
 .gridColH > :nth-child(5), .gridColH > :nth-child(10) {
-  border-right: 1px solid #999999;
+  border-right: 1px solid var(--contrast-border);
 }
 .gridColH > :nth-child(6), .gridColH > :nth-child(11) {
-  border-left: 1px solid #999999;
+  border-left: 1px solid var(--contrast-border);
 }
 
 .gridRowH {
   grid-row: 2;
   grid-column: 1;
   display: grid;
-  border-top: 1px solid white;
-  border-left: 1px solid white;
-  border-bottom: 1px solid white;
+  border-top: 1px solid var(--main-border);
+  border-left: 1px solid var(--main-border);
+  border-bottom: 1px solid var(--main-border);
 }
 /*determines number of columns based on size*/
 .size-5 .gridRowH {
@@ -229,10 +229,10 @@
 
 /*row header lines every 5*/
 .gridRowH > :nth-child(5n) {
-  border-bottom: 1px solid #999999;
+  border-bottom: 1px solid var(--contrast-border);
 }
 .gridRowH > :nth-child(5n+1) {
-  border-top: 1px solid #999999;
+  border-top: 1px solid var(--contrast-border);
 }
 
 .solnButton {
@@ -338,7 +338,7 @@
 }
 
 .navbar {
-  color: white;
+  color: var(--text-color);
   display: flex;
   list-style: none;
 }
@@ -346,34 +346,34 @@
 .navSolve {
   position: relative;
   left: -50px;
-  color:white;
+  color:var(--text-color);
   padding: 20px;
   margin: 10px;
   text-decoration: none;
-  border: 1px solid white;
+  border: 1px solid var(--main-border);
 }
 
 .navCreate {
   position: relative;
   left: -50px;
-  color:white;
+  color: var(--text-color);
   padding: 20px;
   margin: 10px;
   text-decoration: none;
-  border: 1px solid white;
+  border: 1px solid var(--main-border);
 }
 
 .navActive {
-  background-color: dimgray;
+  background-color: var(--nav-background-color);
 }
 
 .solveLink {
   display: block;
-  color: white;
+  color: var(--text-color);
   padding: 10px;
   text-decoration: none;
   text-align: center;
-  border: 1px solid white;
+  border: 1px solid var(--main-border);
 }
 
 .dropdownSolve, .dropdownCreate {
@@ -387,7 +387,7 @@
   left: 0px;
   top: 58px;
   width: 204.5px;
-  background-color: gray;
+  background-color: var(--select-color);
 }
 
 .dropdownSolve:hover .dropdownSolveContent {
@@ -400,7 +400,7 @@
   left: 224.5px;
   top: 58px;
   width: 160px;
-  background-color: gray;
+  background-color: var(--select-color);
 }
 
 .dropdownCreate:hover .dropdownCreateContent {
@@ -408,15 +408,25 @@
 }
 
 .solveLink:hover {
-  background-color: dimgray;
+  background-color: var(--nav-background-color);
 }
 
 .gameStats {
+  position: relative;
+  left: 57.5px;
+  top: 75px;
   width: 150px;
   height: 110px;
   padding: 10px;
-  border: 1px solid white;
-  color: rgb(255, 255, 255);
+  border: 1px solid var(--main-border);
+  color: var(--text-color);
   text-indent: 0px;
   text-transform: uppercase;
+}
+
+.themeBtn {
+  left: 1300px;
+  top: 10px;
+  width: 175px;
+  height: 50px;
 }

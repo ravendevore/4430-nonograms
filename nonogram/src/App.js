@@ -1,21 +1,29 @@
 import './App.css';
-import React from 'react';
+import './Theme.css'
+import React, {useState} from 'react';
 import NonogramGame from './components/NonogramGame';
 import CreatePuzzle from './components/CreatePuzzle';
 import RedirectElement from './components/RedirectElement';
 import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 function App() {
 
   const navigate = useNavigate()
+  const [theme, setTheme] = useState("darkMode")
 
   function redirectTo(destURL) { // without this the component won't reload
     navigate('/redirect')
     setTimeout( () => {navigate(destURL)},100)
   }
 
+  function toggleTheme() {
+    if (theme === "darkMode") { setTheme("lightMode") }
+    else { setTheme("darkMode")}
+  }
+
   return (
-    <div className="App">
+    <div className={`App ${theme}`}>
       <ul className="navbar">
         <li>
           <div className="dropdownSolve">
@@ -38,6 +46,7 @@ function App() {
           </div>
         </li>
       </ul>
+      <Button style={{position: "absolute"}} className="themeBtn" onClick={() => toggleTheme()} variant="contained">Toggle Theme</Button>
       <Routes>
         <Route path="/" element={<NonogramGame />}/>
         <Route path="/create" element={<CreatePuzzle />}/>

@@ -4,7 +4,7 @@ const RedirectElement = () => {
 
   return (
     <React.Fragment>
-      <div>LOADING</div>
+      <div></div>
     </React.Fragment>
   );
 }
