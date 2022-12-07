@@ -7,10 +7,12 @@ import example from "./example.png";
 const NonogramGame = () => {
   
   var i = 0;
+
+  const [usedData, setUsedData] = useState(false) //the data should only be loaded in once, after that, if they request a new puzzle, it should make a random one.
   const [dim] = useState(() => getDim())
   const [grid, setGrid] = useState(Array(dim*dim).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
   
-  const [soln, setSoln] = useState(() => randGrid())
+  const [soln, setSoln] = useState(() => dataToGrid())
   const [colH, setcolH] = useState(genNums(0,false).map((obj) => ({val: obj, key: i++})))
   const [rowH, setrowH] = useState(genNums(1,false).map((obj) => ({val: obj, key: i++})))
 
@@ -21,6 +23,7 @@ const NonogramGame = () => {
   const [gameNo, setGameNo] = useState(1);
   const [winNo, setWinNo] = useState(0);
   const [bestTime, setBestTime] = useState(1000);
+  const [didWin, setDidWin] = useState(false) //if the user wins, we need to remember that they did, and add +1 win when they request a random puzzle
 
   // keeps track of grid state by cols/rows
   let gridCols = genNums(0, true)
@@ -38,7 +41,33 @@ const NonogramGame = () => {
     }
   }
 
-  function randGrid() {
+  function dataToGrid() {
+    const urlParams = new URLSearchParams(window.location.search) //url input
+    if(urlParams.has('data') === true && usedData === false) { //if url data exists
+      setUsedData(true)
+      let data = urlParams.get('data') //get it
+      const hexList = []
+      for(let i = 0; i < data.length; i += 4) { //divide into 4 length chunks, store in hexList
+        hexList.push(data.substring(i, i + 4))
+      }
+      let fullPuzzleString = ""
+      for(let i = 0; i < hexList.length; i++) { //for each 4 cars
+        let binToAdd = parseInt(hexList[i], 16).toString(2) //convert from hex to binary
+        let binarySize = 4 * hexList[i].length //binToAdd does not include leading 0s, and so we must readd them, as they are important data
+        while(binToAdd.length < binarySize) {binToAdd = "0" + binToAdd} //expand binary to 16 digits, except in last line, where it should be < 16
+        
+        fullPuzzleString += binToAdd //add to full string
+      }
+      if(dim === 5 || dim === 15) { //in case dim = 5 or 15 remove first three digits
+        fullPuzzleString = fullPuzzleString.substring(3)
+      }
+
+      var output = []
+      for(let i = 0; i < fullPuzzleString.length; ++i)
+        output.push(parseInt(fullPuzzleString[i])) //parse fullString into array of numbers
+      return output
+    }
+    
     const chance = .75
 
     var output = Array(dim*dim);
@@ -50,7 +79,7 @@ const NonogramGame = () => {
         output[i] = 0
       }
     }
-    //this is actually called twice, as react calls usestate function twice. this function isn't pure, but it should work anyway
+      //this is actually called twice, as react calls usestate function twice. this function isn't pure, but it should work anyway
     return output
   }
 
@@ -181,7 +210,7 @@ const NonogramGame = () => {
     alert(correct ? "Solution is correct!" : "Solution is not correct...")
     if(correct){
       stopTimer();
-      setWinNo(prev => prev + 1);
+      setDidWin(true)
       if(seconds<bestTime){
         setBestTime(seconds);
       }
@@ -334,7 +363,8 @@ const NonogramGame = () => {
       removeAll();
       resetTimer();
       startTimer();
-      setSoln(() => randGrid());
+      setSoln(() => dataToGrid());
+      if(didWin) {setWinNo(prev => prev + 1)}
       setGameNo(prev => prev + 1);
     }
   }
