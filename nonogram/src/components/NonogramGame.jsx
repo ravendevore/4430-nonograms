@@ -300,7 +300,7 @@ const NonogramGame = () => {
         }
       }
       if (!correct) {
-        unsolvedChoices.push({type:"col", index:i})
+        unsolvedChoices.push({type:"column", index:i})
       }
     }
     for (let i = 0; i < dim; i++) {// find unsolved rows
