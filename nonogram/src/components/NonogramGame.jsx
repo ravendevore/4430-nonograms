@@ -1,5 +1,4 @@
-import { RowingRounded } from '@mui/icons-material';
-import { Button, Popover, rgbToHex, Typography } from '@mui/material';
+import { Button, Popover, Typography } from '@mui/material';
 import React, {useState, useRef, useEffect} from 'react';
 import example from "./example.png";
 
