@@ -11,13 +11,13 @@ function App() {
 
   const navigate = useNavigate()
 
-  let startTheme = "darkMode"
-  if (!localStorage)
+  let storedTheme = localStorage.getItem("theme")
+  if (!storedTheme)
   {
     localStorage.setItem("theme", "darkMode")
+    storedTheme = "darkMode"
   }
-  startTheme = localStorage.getItem("theme")
-  const [theme, setTheme] = useState(startTheme)
+  const [theme, setTheme] = useState(storedTheme)
 
   function redirectTo(destURL) { // without this the component won't reload
     navigate('/redirect')
