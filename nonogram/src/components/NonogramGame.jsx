@@ -2,12 +2,11 @@ import { Button, Popover, Typography } from '@mui/material';
 import React, {useState, useRef, useEffect} from 'react';
 import example from "./example.png";
 
-
-
 const NonogramGame = () => {
   
   var i = 0;
   const [dim] = useState(() => getDim())
+  const [data] = useState(() => checkData())
   const [grid, setGrid] = useState(Array(dim*dim).fill({sty: "outlined", val: 0}).map((obj) => ({...obj, key: i++})))
   
   const [soln, setSoln] = useState(() => randGrid())
@@ -35,6 +34,29 @@ const NonogramGame = () => {
       return 5
     } else {
       return parseInt(d)
+    }
+  }
+
+  function checkData() {
+    const urlParams = new URLSearchParams(window.location.search)
+    let dim  = urlParams.get('dim')
+    let data = urlParams.get('data')
+
+    console.log("data: ", data)
+
+    if(data !== null) {
+      let hexSubstr = parseInt(data, 16).toString(2)
+      console.log("Converted data: ", hexSubstr)
+
+      // console.log(grid.length)
+      // for(var j = 0; j < grid.length; j++) { // get the binary data from the grid
+      //   if (grid[j].val === 1) {
+      //     puzzleData += "1"
+      //   }
+      //   else {
+      //     puzzleData += "0"
+      //   }
+      // }
     }
   }
 
@@ -76,8 +98,6 @@ const NonogramGame = () => {
     }
   }
 
-<<<<<<< HEAD
-=======
   function change(e, objElement) { // set is what we set it do, and its based on the initial value
     if (e.buttons === 1) {
       if (choiceStatus === 0 || choiceStatus === 2) {
@@ -99,7 +119,6 @@ const NonogramGame = () => {
     }
   }
 
->>>>>>> main
   const buttonMap = grid.map((objElement) => {
     if (objElement.val === 2) {
       return (
@@ -374,7 +393,7 @@ const NonogramGame = () => {
   };
   useEffectOnce( ()=> {
     startTimer();
-});
+  });
 
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -392,19 +411,6 @@ const NonogramGame = () => {
 
   return (
     <React.Fragment>
-<<<<<<< HEAD
-      <div className="grid">
-        <div className="gridColH">
-            {colHMap}
-        </div>
-        <div className="gridRowH">
-            {rowHMap}
-        </div>
-        <div className="gridCont">
-            {buttonMap}
-        </div>
-      </div>
-=======
       <div className={"size-" + dim}>
         <div className="grid">
           <div className="gridColH">
@@ -425,7 +431,6 @@ const NonogramGame = () => {
       >
         Check Solution
       </Button>
->>>>>>> main
 
       <Button className="tutorial"
       variant="contained"
@@ -434,19 +439,11 @@ const NonogramGame = () => {
         How to Play
       </Button>
 
-<<<<<<< HEAD
-      <Button className="solnButton"
-        onClick={() => checkSolution()}
-        variant = "contained"
-      >
-        Check Solution
-=======
       <Button className="hint"
       variant="contained"
       onClick={() => giveHint()}
       >
         Get Hint
->>>>>>> main
       </Button>
 
       <Button className="clearButton"
@@ -456,15 +453,6 @@ const NonogramGame = () => {
         Clear Board
       </Button>
 
-<<<<<<< HEAD
-      <Button className="tutorial"
-      variant="contained"
-      onClick={handleClick}
-      >
-        How to Play
-      </Button>
-
-=======
 
   
       <Button className="newGameButton"
@@ -484,7 +472,6 @@ const NonogramGame = () => {
       <br></br>
       best time: {bestTime}</p>
 
->>>>>>> main
 
       <Popover
         id={id}
@@ -498,19 +485,11 @@ const NonogramGame = () => {
           horizontal: 'left',
         }}
       >
-<<<<<<< HEAD
-        <Typography sx={{ p: 2 }}>-Numbers on the side of each row and column correspond to “blocks” of squares than should be filled in</Typography>
-          <img src={example} />
-          <Typography sx={{ p: 2 }}>
-            -Left click to fill in squares
-          </Typography>
-=======
         <Typography sx={{ p: 2 }}>
           -Numbers on the side of each row and column correspond to “blocks” of squares than should be filled in
         </Typography>
           <img src={example} alt = "game instructions" />
           <Typography sx={{ p: 2 }}>-Left click to fill in squares</Typography>
->>>>>>> main
         <Typography sx={{ p: 2 }}>-Right click to mark squares as blank</Typography>
       </Popover>
     </React.Fragment>
