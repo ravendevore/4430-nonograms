@@ -23,7 +23,6 @@ const NonogramGame = () => {
   const [gameNo, setGameNo] = useState(1);
   const [winNo, setWinNo] = useState(0);
   const [bestTime, setBestTime] = useState(1000);
-  const [didWin, setDidWin] = useState(false) //if the user wins, we need to remember that they did, and add +1 win when they request a random puzzle
 
   // keeps track of grid state by cols/rows
   let gridCols = genNums(0, true)
@@ -210,7 +209,7 @@ const NonogramGame = () => {
     alert(correct ? "Solution is correct!" : "Solution is not correct...")
     if(correct){
       stopTimer();
-      setDidWin(true)
+      setWinNo(prev => prev + 1)
       if(seconds<bestTime){
         setBestTime(seconds);
       }
@@ -364,7 +363,6 @@ const NonogramGame = () => {
       resetTimer();
       startTimer();
       setSoln(() => dataToGrid());
-      if(didWin) {setWinNo(prev => prev + 1)}
       setGameNo(prev => prev + 1);
     }
   }
